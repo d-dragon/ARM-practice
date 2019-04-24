@@ -8,9 +8,6 @@
         "storageAccountName": {
             "type": "string"
         },
-        "blobServiceName": {
-            "type": "string"
-        },
         "containerName": {
             "type": "string"
         },
@@ -49,50 +46,54 @@
                 "name": "[parameters('accountType')]"
             },
             "kind": "[parameters('kind')]",
-            "resources": [
-                
-                
-            ]   
-        },
-        {
-            "name": "default",
-            "type": "Microsoft.Storage/storageAccounts/blobServices",
-            "apiVersion": "2019-04-01",
-            "properties": {
-                "cors": {
-                    "corsRules": [
-                        {
-                            "allowedOrigins": [
-                                "http://localhost",
-                                "https://certivation.com"
-                            ],
-                            "allowedMethods": [
-                                "GET"                                    
-                            ],
-                            "allowedHeaders":[
-                                "*"
-                            ],
-                            "exposedHeaders": [
-                                "*"
-                            ],
-                            "maxAgeInSeconds": 0
-                        
+            "resources": [   
+                {
+                    "name": "default",
+                    "type": "blobServices",
+                    "apiVersion": "2019-04-01",
+                    "dependsOn": [
+                        "[parameters('storageAccountName')]"
+                    ],
+                    "properties": {
+                        "cors": {
+                            "corsRules": [
+                                {
+                                    "allowedOrigins": [
+                                        "https://certivation.com"
+                                    ],
+                                    "allowedMethods": [
+                                        "GET"                                    
+                                    ],
+                                    "allowedHeaders":[
+                                        "*"
+                                    ],
+                                    "exposedHeaders": [
+                                        "*"
+                                    ],
+                                    "maxAgeInSeconds": 0
+                                
+                                }
+                            ]
                         }
-                    ]
+                    },
+                    "resources": []
+                },
+                {
+                    "name": "[concat('default/', parameters('containerName'))]",
+                    "type": "blobServices/containers",
+                    "apiVersion": "2019-04-01",
+                    "dependsOn": [
+                        "[parameters('storageAccountName')]"
+                    ],
+                    "properties": {
+                      "publicAccess": "Container",
+                      "metadata": {}
+                    },
+                    "resources": [] 
                 }
-            },
-            "resources": []
-        },
-        {
-            "name": "[parameters('containerName')]",
-            "type": "Microsoft.Storage/storageAccounts/blobServices/containers",
-            "apiVersion": "2019-04-01",
-            "properties": {
-              "publicAccess": "Container",
-              "metadata": {}
-            },
-            "resources": [] 
+            ]   
         }
+        
     ],
     "outputs": {}
 }

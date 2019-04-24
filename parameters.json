@@ -11,9 +11,6 @@
         "containerName": {
             "value": "auth0-static-contents"
         },
-        "blobServiceName": {
-            "value": "blob-dev"
-        },
         "accountType": {
             "value": "Standard_LRS"
         },
