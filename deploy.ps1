@@ -79,7 +79,7 @@ $resourceProviders = @("microsoft.storage");
 if($resourceProviders.length) {
     Write-Host "Registering resource providers"
     foreach($resourceProvider in $resourceProviders) {
-        RegisterRP($resourceProvider);
+        #RegisterRP($resourceProvider);
     }
 }
 

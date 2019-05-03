@@ -31,7 +31,7 @@
         {
             "name": "[parameters('storageAccountName')]",
             "type": "Microsoft.Storage/storageAccounts",
-            "apiVersion": "2018-07-01",
+            "apiVersion": "2019-04-01",
             "location": "[parameters('location')]",
             "tags": {"env": "DEVTEST/QA"},
             "identity": {
@@ -60,6 +60,22 @@
                                 {
                                     "allowedOrigins": [
                                         "https://certivation.com"
+                                    ],
+                                    "allowedMethods": [
+                                        "GET"                                    
+                                    ],
+                                    "allowedHeaders":[
+                                        "*"
+                                    ],
+                                    "exposedHeaders": [
+                                        "*"
+                                    ],
+                                    "maxAgeInSeconds": 0
+                                
+                                },
+                                {
+                                    "allowedOrigins": [
+                                        "http://localhost"
                                     ],
                                     "allowedMethods": [
                                         "GET"                                    
